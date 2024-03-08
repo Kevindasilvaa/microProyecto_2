@@ -14,7 +14,7 @@ export async function loginWithCredentials(email, password){
 //Dados esos parametros. este metodo guardara los datos del usuario en la base de datos de firebase
 //Y tambien en la Autentificacion de firebase
 //si el correo que se coloca ya existe, firebase lo detectara y no lo permitira
-export async function registerWithCredentials(email, password,name,number){
+export async function registerWithCredentials(email,password,name,last_name,username,videojuego_preferido){
   try{
     const {user} = await createUserWithEmailAndPassword(
       auth,
@@ -23,11 +23,12 @@ export async function registerWithCredentials(email, password,name,number){
     );
     const usersCollection = collection(db,'usuarios');
     await addDoc(usersCollection,{
-        id: email,
-        name: name,
-        number:number,
-        picture: user.photoURL,
-        agrupaciones: []
+        nombre: name,
+        apellido:last_name,
+        username:username,
+        email: email,
+        videojuego_preferido: videojuego_preferido,
+        membresias:[],
     });
       return user;
   }catch (e){
@@ -36,17 +37,18 @@ export async function registerWithCredentials(email, password,name,number){
   }
 }
 
-export async function ingresarGoogle(){
+export async function ingresarGoogle(apellido,username,videojuego_preferido){
     const result = await signInWithPopup(auth,googleProvider);
     const aditionalInfo = getAdditionalUserInfo(result);
     if(aditionalInfo.isNewUser){
       const usersCollection = collection(db,'usuarios');
       await addDoc(usersCollection,{
-        id:result.user.email,
-        name: result.user.displayName,
-        number: "",
-        picture: result.user.photoURL,
-        agrupaciones:[]
+        nombre: result.user.displayName,
+        apellido:apellido,
+        username:username,
+        email: result.user.email,
+        videojuego_preferido: videojuego_preferido,
+        membresias:[],    
       });
     }
     return result.user;
@@ -55,6 +57,15 @@ export async function ingresarGoogle(){
 export async function logOut(){
   await signOut(auth);
 }
+
+//funcion que agrega los json
+export async function r(){
+  const s = [];
+  const usersCollection = collection(db, 'videojuegos');
+  for (let i = 0; i < s.length; i++) {       
+    await addDoc(usersCollection, s[i]);
+  }
+ }
 
 // //dado un email, este metodo verificara si hay un email en la base de datos de firebase igual o no
 // export function verificarUsuario(email){

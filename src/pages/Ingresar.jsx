@@ -67,7 +67,7 @@ export default function Ingresar() {
             {/**INICIO DE SESION MEDIANTE PROVEEDORES */}
             <div>
                 <hr className={styles.linea_horizontal}/>
-                <button onClick={() => botonIniciarSesionGoogle()}>GOOGLE</button>
+                <button >GOOGLE</button>
                 <button>FACEBOOK</button>
             </div>
         </div>

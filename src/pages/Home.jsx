@@ -15,7 +15,8 @@ export default function Home() {
   const user = useUser();
   function mostrarDatos(){
     if(user !== null){
-      alert(user.name + "\n" + user.email + "\n" + user.number + "\n" + user.picture + "\n" + user.agrupaciones);
+      alert(user.nombre + "\n" +user.apellido + "\n" + user.username +"\n"+ user.email + "\n" + user.apellido + "\n" + user.membresias + "\n" + user.videojuego_preferido);
+    
     }else{
       alert("no hay sesion iniciada")
     }
@@ -37,7 +38,7 @@ export default function Home() {
 
       
         {videojuegos.map((Videojuego) => (
-          <div>{Videojuego.titulo}</div>
+          <div key={Videojuego.titulo}>{Videojuego.titulo}</div>
         ) )}
       
 

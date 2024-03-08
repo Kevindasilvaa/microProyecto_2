@@ -1,9 +1,10 @@
-export function Usuario(name,email,username,picture,videogame) {
-    this.name = name;
+export function Usuario(nombre,apellido,username,email,videojuego_preferido) {
+    this.nombre = nombre;
+    this.apellido = apellido;
     this.email = email;
     this.username = username;
-    this.picture = picture;
-    this.videogame = videogame;
+    this.videojuego_preferido = videojuego_preferido;
+    this.membresias = [];
   }
   
 //   var estudiante = new Estudiante("Juan", 20, "Informática", "Universidad XYZ");

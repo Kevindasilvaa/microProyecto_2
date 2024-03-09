@@ -16,15 +16,15 @@ export default function NavBar() {
       {user ? 
         <nav className={styles.nav}>
          <NavLink
-            key={routes[0].path}
-            to={routes[0].path}
+            key={routes[2].path}
+            to={routes[2].path}
             className={({ isActive }) =>
               isActive
                 ? `${styles["nav-link"]} ${styles.active}`
                 : styles["nav-link"]
             }
           >
-            {routes[0].name}
+            {routes[2].name}
           </NavLink>
 
           <NavLink
@@ -39,31 +39,20 @@ export default function NavBar() {
             {routes[3].name}
           </NavLink>
 
-          <NavLink
-            key={routes[4].path}
-            to={routes[4].path}
-            className={({ isActive }) =>
-              isActive
-                ? `${styles["nav-link"]} ${styles.active}`
-                : styles["nav-link"]
-            }
-          >
-            {routes[4].name}
-          </NavLink>
       </nav>
     
       
       :  <nav className={styles.nav}>
       <NavLink
-      key={routes[1].path}
-      to={routes[1].path}
+      key={routes[0].path}
+      to={routes[0].path}
       className={({ isActive }) =>
         isActive
           ? `${styles["nav-link"]} ${styles.active}`
           : styles["nav-link"]
       }
     >
-      {routes[1].name}
+      {routes[0].name}
     </NavLink>
     </nav>
       }

@@ -1,10 +1,6 @@
 export const routes = [
     {
         path: "/",
-        name: "Home",
-    },
-    {
-        path: "/ingresar",
         name: "Ingresar",
     },
     {
@@ -12,16 +8,17 @@ export const routes = [
         name: "Registrar",
     },
     {
-        path: "/Videojuegos",
-        name: "Videojuegos",
-    },
-    {
         path: "/Clubes",
-        name: "Clubes",
+        name: "Inicio",
         children:[
             {
                 path: "/Clubes/:id",
                 name: ":id",
             },]
-    }
+    },
+    {
+        path: "/Biblioteca",
+        name: "Biblioteca",
+    },
+
 ] as const 

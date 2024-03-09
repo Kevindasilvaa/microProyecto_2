@@ -6,11 +6,7 @@ import { Videojuego } from '../objetos/Videojuego';
 
 export default function Home() {
 
-  const {
-    videojuegosStatus,
-  } = useVideojuegos();
-
-  const videojuegos = videojuegosStatus.data;
+ 
 
   const user = useUser();
   function mostrarDatos(){
@@ -22,13 +18,7 @@ export default function Home() {
     }
   }
 
-    if (
-      videojuegosStatus.status === "loading" ) {
-    return <div>Cargando...</div>;
-  } else if (
-    videojuegosStatus.status === "error" ) {
-    return <div>Error al cargar los datos</div>;
-  }
+   
 
   return (
     <div>
@@ -37,9 +27,6 @@ export default function Home() {
       <button onClick={() => mostrarDatos()}>mostrar datos usuario</button>
 
       
-        {videojuegos.map((Videojuego) => (
-          <div key={Videojuego.titulo}>{Videojuego.titulo}</div>
-        ) )}
       
 
 

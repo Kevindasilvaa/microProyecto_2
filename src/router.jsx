@@ -6,7 +6,7 @@ import { routes } from "./constants/routes";
 import Registrar from "./pages/Registrar.jsx";
 import Videojuegos from './pages/Videojuegos.jsx';
 import Club from './pages/Club.jsx';
-
+import Perfil from './pages/Perfil.jsx';
 
 
 export const router = createBrowserRouter([
@@ -31,12 +31,14 @@ export const router = createBrowserRouter([
             element: <Club />,
           },]
       },
-      ,
       {
         path: routes[3].path,
         element: <Videojuegos />,
       },
-      ,
+      {
+        path: routes[4].path,
+        element: <Perfil />,
+      },
 
     ],
   },

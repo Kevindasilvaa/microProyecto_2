@@ -39,6 +39,18 @@ export default function NavBar() {
             {routes[3].name}
           </NavLink>
 
+          <NavLink
+            key={routes[4].path}
+            to={routes[4].path}
+            className={({ isActive }) =>
+              isActive
+                ? `${styles["nav-link"]} ${styles.active}`
+                : styles["nav-link"]
+            }
+          >
+            {routes[4].name}
+          </NavLink>
+
       </nav>
     
       

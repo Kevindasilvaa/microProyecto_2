@@ -24,6 +24,18 @@ export default function Registar() {
     const {videojuegosStatus,} = useVideojuegos();
     const videojuegos = videojuegosStatus.data;
 
+    //cada vez que el auth cambie pasara por aqui
+    useEffect(() => {
+        onAuthStateChanged(auth, (user) => {
+        if (user) {
+            navigate("/Clubes");
+        } else {
+            console.log("Error en el useefect de la pagina Ingresar");
+            
+        }
+        });
+    }, []);
+
     function register(){
         const videojuego_preferido = document.getElementById('videojuego').value;
         registerWithCredentials(email,password,name,last_name,username,videojuego_preferido);

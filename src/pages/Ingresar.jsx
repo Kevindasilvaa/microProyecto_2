@@ -1,7 +1,7 @@
 import img from '../img/ingresar.jpg';
 import logo from '../img/UNIMET_neg.png';
 import styles from './Ingresar.module.css';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import { useUser } from '../context/user';
 import { loginWithCredentials,ingresarGoogle } from '../controllers/auth';
 import { useNavigate } from 'react-router-dom';
@@ -14,11 +14,22 @@ export default function Ingresar() {
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
 
-
+    //cada vez que el auth cambie pasara por aqui
+    useEffect(() => {
+        onAuthStateChanged(auth, (user) => {
+        if (user) {
+            navigate("/Clubes");
+        } else {
+            console.log("Error en el useefect de la pagina Ingresar");
+            
+        }
+        });
+    }, []);
     function botonIniciarSesion(){
         //Si user == null entonces no hay sesion iniciada.En caso contrario hay una sesion iniciada.
         if( user == null){
             loginWithCredentials(email,password);
+            //navigate("/Clubes");
         }else{
             alert("Actualmente hay una sesion iniciada.Cierra sesion para iniciar con otro usuario.");
         }
@@ -67,7 +78,7 @@ export default function Ingresar() {
             {/**INICIO DE SESION MEDIANTE PROVEEDORES */}
             <div>
                 <hr className={styles.linea_horizontal}/>
-                <button >GOOGLE</button>
+                <button onClick={() => botonIniciarSesionGoogle()}>GOOGLE</button>
                 <button>FACEBOOK</button>
             </div>
         </div>

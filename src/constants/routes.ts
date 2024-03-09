@@ -20,5 +20,9 @@ export const routes = [
         path: "/Biblioteca",
         name: "Biblioteca",
     },
+    {
+        path: "/Perfil",
+        name: "Perfil",
+    },
 
 ] as const 

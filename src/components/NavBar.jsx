@@ -1,16 +1,15 @@
 import logo from '../img/UNIMET_neg.png'
 import { routes } from "../constants/routes";
 import { Link, NavLink } from "react-router-dom";
-import styles from "./NavBar.module.css"
+import styles from "./NavBar.module.css";
 
 export default function NavBar() {
     return (
-     
 
       <header className={styles.header}>
       <img className="logo" width="100px" height="40px"  src={logo} ></img>
 
-      <nav className={styles.nav}>
+      <nav id='nav' className={styles.nav}>
         {routes.map((route) => (
           <NavLink
             key={route.path}

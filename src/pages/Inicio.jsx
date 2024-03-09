@@ -4,7 +4,7 @@ import useVideojuegos from '../hooks/useVideojuegos';
 import { Videojuego } from '../objetos/Videojuego'; 
 
 
-export default function Home() {
+export default function Inicio() {
 
   const {
     videojuegosStatus,

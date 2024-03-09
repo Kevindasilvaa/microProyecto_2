@@ -65,67 +65,45 @@ export async function ingresarGoogle(apellido,username,videojuego_preferido){
     return result.user;
 }
 
+export async function iniciarSesionGoogle(){
+  const result = await signInWithPopup(auth,googleProvider);
+  const aditionalInfo = getAdditionalUserInfo(result);
+  const id = auth.currentUser.uid;
+  //result.uid;
+  if(aditionalInfo.isNewUser){
+    try {
+      const docRef = doc(db, "usuarios", id);
+      const data = {
+        nombre: result.user.displayName,
+        apellido: "",
+        username: "",
+        email: result.user.email,
+        videojuego_preferido: "",
+        membresias:[],    
+      };
+  
+      await setDoc(docRef, data, { merge: true });
+      return true;
+    } catch (error) {
+      console.error("Error al guardar usuario en firestore: ", error);
+    }
+  }
+  return false;
+}
+
 export async function logOut(){
   await signOut(auth);
 }
 
-export async function modificarNombre(user,nuevo_nombre){
+export async function modificarUsuario(user_modificado){
     try {
       const id = auth.currentUser.uid;
       const docRef = doc(db, "usuarios", id);
-      const data = {
-        nombre: nuevo_nombre,
-        apellido:user.apellido,
-        username:user.username,
-        email: user.email,
-        videojuego_preferido: user.videojuego_preferido,
-        membresias:user.membresias,    
-      };
   
-      await setDoc(docRef, data, { merge: true });
-      alert("Tu nombre se ha modificado con exito");
+      await setDoc(docRef, user_modificado, { merge: true });
     } catch (error) {
       console.error("Error updating document: ", error);
     }
-}
-
-export async function modificarApellido(user,nuevo_apellido){
-  try {
-    const id = auth.currentUser.uid;
-    const docRef = doc(db, "usuarios", id);
-    const data = {
-      nombre: user.nombre,
-      apellido:nuevo_apellido,
-      username:user.username,
-      email: user.email,
-      videojuego_preferido: user.videojuego_preferido,
-      membresias:user.membresias,    
-    };
-
-    await setDoc(docRef, data, { merge: true });
-    alert("Tu apellido se ha modificado con exito");
-  } catch (error) {
-    console.error("Error updating document: ", error);
-  }
-}
-export async function modificarJuegoFavorito(user,id_juego_favorito_nuevo){
-  try {
-    const id = auth.currentUser.uid;
-    const docRef = doc(db, "usuarios", id);
-    const data = {
-      nombre: user.nombre,
-      apellido:user.apellido,
-      username:user.username,
-      email: user.email,
-      videojuego_preferido: id_juego_favorito_nuevo,
-      membresias:user.membresias,    
-    };
-
-    await setDoc(docRef, data, { merge: true });
-    alert("Tu videojuego favorito se ha modificado con exito");
-  } catch (error) {
-    console.error("Error updating document: ", error);
-  }
 }
 
 // //dado un email, este metodo verificara si hay un email en la base de datos de firebase igual o no

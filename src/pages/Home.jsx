@@ -23,9 +23,9 @@ export default function Home() {
   return <div>Error al cargar los datos</div>;
 }
 
-  const user = useUser();
+  const {user,setUser} = useUser();
   function mostrarDatos(){
-    if(user !== null){
+    if(user.user !== null){
       alert(user.nombre + "\n" +user.apellido + "\n" + user.username +"\n"+ user.email + "\n" + user.apellido + "\n" + user.membresias + "\n" + user.videojuego_preferido);
     
     }else{

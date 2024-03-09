@@ -30,8 +30,7 @@ export default function Registar() {
         if (user) {
             navigate("/Clubes");
         } else {
-            console.log("Error en el useefect de la pagina Ingresar");
-            
+            console.log("Error en el useefect de la pagina Ingresar");  
         }
         });
     }, []);

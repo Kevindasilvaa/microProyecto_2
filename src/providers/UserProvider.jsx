@@ -11,7 +11,7 @@ import {Usuario} from '../objetos/Usuario';
 export default function UserProvider({ children }) {
   const [user, setUser] = useState(null);
 
-  //dado un user, este metodo busca el estudiante en la base de datos, lo convierte en un objeto estudiante y cambia el estado del user.
+  //dado un user, este metodo busca el usuario en la base de datos, lo convierte en un objeto usuario y cambia el estado del user.
   async function obtenerUsuario(user){
       const usersCollection = collection(db,'usuarios');
       const usersSnapshot = await getDocs(usersCollection);
@@ -25,7 +25,6 @@ export default function UserProvider({ children }) {
         }
       }
   }
-
   //cada vez que el auth cambie pasara por aqui
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -41,7 +40,7 @@ export default function UserProvider({ children }) {
   }, []);
   
   return (
-    <UserContext.Provider value={ user }>
+    <UserContext.Provider value= {{user,setUser} }>
       {children}
     </UserContext.Provider>
   );

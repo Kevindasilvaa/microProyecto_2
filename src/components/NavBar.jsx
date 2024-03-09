@@ -5,9 +5,9 @@ import styles from "./NavBar.module.css"
 import { useUser } from '../context/user';
 
 export default function NavBar() {
-  const user = useUser();
+  const {user,setUser} = useUser();
+
     return (
-     
 
       <header className={styles.header}>
       <img className="logo" width="100px" height="40px"  src={logo} ></img>

@@ -1,34 +1,47 @@
 import img from '../img/ingresar.jpg';
 import logo from '../img/UNIMET_neg.png';
 import styles from './Ingresar.module.css';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import { useUser } from '../context/user';
-import { loginWithCredentials,ingresarGoogle } from '../controllers/auth';
+import { loginWithCredentials,ingresarGoogle, iniciarSesionGoogle } from '../controllers/auth';
 import { useNavigate } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../firebase';
 
 export default function Ingresar() {
-    const user = useUser();
+    const {user,setUser} = useUser();
     const [email,setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
 
-
+    //cada vez que el auth cambie pasara por aqui
+    useEffect(() => {
+        onAuthStateChanged(auth, (user) => {
+        if (user) {
+            navigate("/Clubes");
+        } 
+        });
+    }, []);
     function botonIniciarSesion(){
         //Si user == null entonces no hay sesion iniciada.En caso contrario hay una sesion iniciada.
         if( user == null){
             loginWithCredentials(email,password);
+            //navigate("/Clubes");
         }else{
             alert("Actualmente hay una sesion iniciada.Cierra sesion para iniciar con otro usuario.");
         }
     }
 
-    function botonIniciarSesionGoogle(){
+    async function botonIniciarSesionGoogle(){
         //Si user == null entonces no hay sesion iniciada.En caso contrario hay una sesion iniciada.
         if( user == null){
             //verifica las credenciales y de ser validas, cambiara el estado de user
-            ingresarGoogle();
+            const x = await iniciarSesionGoogle();
+            if(x === true){
+                alert("Has iniciado sesion con una cuenta de google que no estaba registrada \n Rellena los datos de tu perfil");
+                navigate("/Perfil");
+            }
+
         }else{
             alert("Actualmente hay una sesion iniciada.Cierra sesion para iniciar con otro usuario.");
         }
@@ -67,7 +80,7 @@ export default function Ingresar() {
             {/**INICIO DE SESION MEDIANTE PROVEEDORES */}
             <div>
                 <hr className={styles.linea_horizontal}/>
-                <button >GOOGLE</button>
+                <button onClick={() => botonIniciarSesionGoogle()}>GOOGLE</button>
                 <button>FACEBOOK</button>
             </div>
         </div>

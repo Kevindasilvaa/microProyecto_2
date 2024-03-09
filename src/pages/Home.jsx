@@ -1,20 +1,31 @@
 import { logOut} from '../controllers/auth';
 import { useUser } from '../context/user';
+import useClubes from '../hooks/useClubes';
+import { Club } from '../objetos/Club'; 
 import useVideojuegos from '../hooks/useVideojuegos';
 import { Videojuego } from '../objetos/Videojuego'; 
 
 
-export default function Inicio() {
+export default function Home() {
+
 
   const {
-    videojuegosStatus,
-  } = useVideojuegos();
+    clubStatus,
+  } = useClubes();
 
-  const videojuegos = videojuegosStatus.data;
+  const clubes = clubStatus.data;
 
-  const user = useUser();
+  if (
+    clubStatus.status === "loading" ) {
+  return <div>Cargando...</div>;
+} else if (
+  clubStatus.status === "error" ) {
+  return <div>Error al cargar los datos</div>;
+}
+
+  const {user,setUser} = useUser();
   function mostrarDatos(){
-    if(user !== null){
+    if(user.user !== null){
       alert(user.nombre + "\n" +user.apellido + "\n" + user.username +"\n"+ user.email + "\n" + user.apellido + "\n" + user.membresias + "\n" + user.videojuego_preferido);
     
     }else{
@@ -22,13 +33,7 @@ export default function Inicio() {
     }
   }
 
-    if (
-      videojuegosStatus.status === "loading" ) {
-    return <div>Cargando...</div>;
-  } else if (
-    videojuegosStatus.status === "error" ) {
-    return <div>Error al cargar los datos</div>;
-  }
+   
 
   return (
     <div>
@@ -36,13 +41,15 @@ export default function Inicio() {
       <button onClick={() => logOut()}>cerrar sesion</button>
       <button onClick={() => mostrarDatos()}>mostrar datos usuario</button>
 
-      
-        {videojuegos.map((Videojuego) => (
-          <div key={Videojuego.titulo}>{Videojuego.titulo}</div>
-        ) )}
-      
+      <div>  {clubes.map((Club) => (
+        <>
+            <div key={Club.nombre}>{Club.nombre}</div>
+         </>
+          ) ) }
+        </div>
 
+    
 
-    </div>
+  </div>
   );
 }

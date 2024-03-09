@@ -8,15 +8,21 @@ export const routes = [
         name: "Registrar",
     },
     {
-        path: "/inicio",
+        path: "/Clubes",
         name: "Inicio",
+        children:[
+            {
+                path: "/Clubes/:id",
+                name: ":id",
+            },]
+    },
+    {
+        path: "/Biblioteca",
+        name: "Biblioteca",
     },
     {
         path: "/Perfil",
         name: "Perfil",
     },
-    {
-        path: "/Busqueda",
-        name: "Busqueda",
-    },
+
 ] as const 

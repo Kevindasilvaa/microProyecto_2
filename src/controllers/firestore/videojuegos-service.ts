@@ -19,3 +19,23 @@ export async function getVideojuegos() {
         return [];
     }
 }
+
+export async function getVideogameById(videogameID: string) {
+    try {
+        const docRef = doc(db, "videojuegos", videogameID);
+        const docSnap = await getDoc(docRef);
+    
+    if (!docSnap.exists()) {
+            return null;
+        }
+    
+    const videogame: Videojuego = {
+            ...(docSnap.data() as any),
+            id: docSnap.id,
+        };
+        return videogame;
+    } catch (error) {
+        console.error("Error getting document: ", error);
+        return null;
+        }
+    }

@@ -11,20 +11,20 @@ import {Usuario} from '../objetos/Usuario';
 export default function UserProvider({ children }) {
   const [user, setUser] = useState(null);
 
-  //dado un user, este metodo busca el estudiante en la base de datos, lo convierte en un objeto estudiante y cambia el estado del user.
+  //dado un user, este metodo busca el usuario en la base de datos, lo convierte en un objeto usuario y cambia el estado del user.
   async function obtenerUsuario(user){
       const usersCollection = collection(db,'usuarios');
       const usersSnapshot = await getDocs(usersCollection);
       const users = usersSnapshot.docs.map((doc) => doc.data());
+      console.log(users);
       for (let i = 0; i < users.length; i++) {
         if(users[i]['email'] === user.email){
           const usuario = new Usuario(users[i]['nombre'],users[i]['apellido'],users[i]['username'],users[i]['email'],users[i]['videojuego_preferido']);
-          console.log( usuario.email);
+          console.log( usuario.videojuego_preferido);
           setUser(usuario);
         }
       }
   }
-
   //cada vez que el auth cambie pasara por aqui
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -40,8 +40,9 @@ export default function UserProvider({ children }) {
   }, []);
   
   return (
-    <UserContext.Provider value={ user }>
+    <UserContext.Provider value= {{user,setUser} }>
       {children}
     </UserContext.Provider>
   );
 }
+//

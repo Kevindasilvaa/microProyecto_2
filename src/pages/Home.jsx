@@ -2,18 +2,28 @@ import { logOut} from '../controllers/auth';
 import { useUser } from '../context/user';
 import useClubes from '../hooks/useClubes';
 import { Club } from '../objetos/Club'; 
+import { Link, NavLink } from "react-router-dom";
+
+import { routes } from '../constants/routes';
 import useVideojuegos from '../hooks/useVideojuegos';
+import { getVideogameById } from '../controllers/firestore/videojuegos-service';
 import { Videojuego } from '../objetos/Videojuego'; 
+import { useEffect, useState, useContext } from 'react';
 
 
 export default function Home() {
 
+ 
 
   const {
     clubStatus,
   } = useClubes();
 
   const clubes = clubStatus.data;
+
+  const {
+    videojuegosStatus,
+  } = useVideojuegos();
 
   if (
     clubStatus.status === "loading" ) {
@@ -23,33 +33,29 @@ export default function Home() {
   return <div>Error al cargar los datos</div>;
 }
 
-  const {user,setUser} = useUser();
-  function mostrarDatos(){
-    if(user.user !== null){
-      alert(user.nombre + "\n" +user.apellido + "\n" + user.username +"\n"+ user.email + "\n" + user.apellido + "\n" + user.membresias + "\n" + user.videojuego_preferido);
-    
-    }else{
-      alert("no hay sesion iniciada")
-    }
-  }
-
-   
 
   return (
     <div>
       HOME
-      <button onClick={() => logOut()}>cerrar sesion</button>
-      <button onClick={() => mostrarDatos()}>mostrar datos usuario</button>
+      <div>
+        {clubes.map((club) => (
+          <>
+            
+            <NavLink
+            key={`/Club/${club.id}`}
+            to={`/Club/${club.id}`}
+            state={{club:club}}
+          >
+            <div>{club.nombre}</div>
+          </NavLink>
+      
+          </>
+        ))}
+      </div>
 
-      <div>  {clubes.map((Club) => (
-        <>
-            <div key={Club.nombre}>{Club.nombre}</div>
-         </>
-          ) ) }
-        </div>
+        
 
     
-
   </div>
   );
 }

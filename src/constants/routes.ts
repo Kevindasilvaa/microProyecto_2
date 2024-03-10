@@ -10,11 +10,11 @@ export const routes = [
     {
         path: "/Clubes",
         name: "Inicio",
-        children:[
-            {
-                path: "/Clubes/:id",
-                name: ":id",
-            },]
+        // children:[
+        //     {
+        //         path: ":id",
+        //         name: ":id",
+        //     },]
     },
     {
         path: "/Biblioteca",
@@ -24,5 +24,10 @@ export const routes = [
         path: "/Perfil",
         name: "Perfil",
     },
+    {
+        path: "/Club/:id",
+        name: ":id",
+    },
+
 
 ] as const 

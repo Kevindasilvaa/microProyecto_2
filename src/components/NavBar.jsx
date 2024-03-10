@@ -1,6 +1,7 @@
 import logo from '../img/UNIMET_neg.png'
 import { routes } from '../constants/routes';
 import { Link, NavLink } from "react-router-dom";
+import { logOut} from '../controllers/auth';
 import styles from "./NavBar.module.css"
 import { useUser } from '../context/user';
 
@@ -52,7 +53,6 @@ export default function NavBar() {
           </NavLink>
 
       </nav>
-    
       
       :  <nav className={styles.nav}>
       <NavLink
@@ -68,14 +68,22 @@ export default function NavBar() {
     </NavLink>
     </nav>
       }
-      <section>
-        {user && (
-          <>
-            <div>{user.nombre}</div>
-            <div>PERFIL</div>
-          </>
+
+     
+        {user && ( 
+         <nav>
+          <NavLink onClick={() => logOut()}
+            className={({ isActive }) =>
+              isActive
+                ? `${styles["nav-link"]} ${styles.active}`
+                : styles["nav-link"]
+            }
+          >
+            Log Out
+          </NavLink>
+          </nav>
         )}
-      </section>
+      
     </header>
       );
     }

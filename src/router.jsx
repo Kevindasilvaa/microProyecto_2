@@ -25,11 +25,11 @@ export const router = createBrowserRouter([
       {
         path: routes[2].path,
         element: <Home />,
-        children: [
-          {
-            path: routes[2]["children"][0].path,
-            element: <Club />,
-          },]
+        // children: [
+        //   {
+        //     path: routes[2]["children"][0].path,
+        //     element: <Club />,
+        //   },]
       },
       {
         path: routes[3].path,
@@ -39,6 +39,11 @@ export const router = createBrowserRouter([
         path: routes[4].path,
         element: <Perfil />,
       },
+      {
+        path: routes[5].path,
+        element: <Club />,
+      },
+      
 
     ],
   },

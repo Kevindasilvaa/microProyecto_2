@@ -1,6 +1,6 @@
-export function Club(id,descripcion,nombre,videojuego) {
+export function Club(id,descripcion,nombre,videojuegos) {
     this.id = id;
     this.descripcion = descripcion;
     this.nombre =nombre;
-    this.videojuego = videojuego;
+    this.videojuegos = videojuegos;
   }

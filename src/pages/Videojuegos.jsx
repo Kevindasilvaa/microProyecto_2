@@ -1,8 +1,21 @@
 import useVideojuegos from '../hooks/useVideojuegos';
 import { Videojuego } from '../objetos/Videojuego'; 
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from '../firebase';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import cargando from '../img/cargando.gif';
 
 export default function Videojuegos() {
-
+  const navigate = useNavigate();
+    //cada vez que el auth cambie pasara por aqui
+    useEffect(() => {
+      onAuthStateChanged(auth, (user) => {
+          if (user === null) {
+              navigate("/");  
+          }
+        });
+    }, []);
     const {
         videojuegosStatus,
       } = useVideojuegos();
@@ -11,7 +24,11 @@ export default function Videojuegos() {
 
       if (
         videojuegosStatus.status === "loading" ) {
-      return <div>Cargando...</div>;
+          return (
+            <div style={{ display: "flex", justifyContent: "center", alignItems: "center" , height: "100vh"}}>
+              <img width="40%" height="20%" src={cargando}/>
+            </div>
+        );
     } else if (
       videojuegosStatus.status === "error" ) {
       return <div>Error al cargar los datos</div>;

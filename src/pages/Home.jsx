@@ -6,11 +6,25 @@ import { Link, NavLink } from "react-router-dom";
 import styles from './Home.module.css';
 import { routes } from '../constants/routes';
 import { useEffect, useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import cargando from '../img/cargando.gif';
+
+
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from '../firebase';
+
 
 
 export default function Home() {
-
- 
+  const navigate = useNavigate();
+  //cada vez que el auth cambie pasara por aqui
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+        if (user === null) {
+            navigate("/");  
+        }
+      });
+    }, []);
 
   const {
     clubStatus,
@@ -20,21 +34,15 @@ export default function Home() {
 
   if (
     clubStatus.status === "loading" ) {
-  return <div>Cargando...</div>;
+      return (
+        <div style={{ display: "flex", justifyContent: "center", alignItems: "center" , height: "100vh"}}>
+          <img width="40%" height="20%" src={cargando}/>
+        </div>
+    );
 } else if (
   clubStatus.status === "error" ) {
   return <div>Error al cargar los datos</div>;
 }
-
-  const {user,setUser} = useUser();
-  function mostrarDatos(){
-    if(user.user !== null){
-      alert(user.nombre + "\n" +user.apellido + "\n" + user.username +"\n"+ user.email + "\n" + user.apellido + "\n" + user.membresias + "\n" + user.videojuego_preferido);
-    
-    }else{
-      alert("no hay sesion iniciada")
-    }
-  }
 
   return (
     <div className={styles.div_principal}>

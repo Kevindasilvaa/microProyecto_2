@@ -32,12 +32,12 @@ export default function Ingresar() {
         if( user == null){
             // Check if the user has entered both fields correctly
             if ("" === email) {
-                setEmailError("Please enter your email");
+                setEmailError("Por favor coloca tu email");
                 return;
             }
         
             if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
-                setEmailError("Please enter a valid email");
+                setEmailError("Por favor coloca un email valido");
                 return;
             }
         
@@ -47,7 +47,7 @@ export default function Ingresar() {
             }
         
             if (password.length < 7) {
-                setPasswordError("La contraseña debe tener al menos 8 caracteres");
+                setPasswordError("La contraseña debe tener al menos 7 caracteres");
                 return;
             }
             loginWithCredentials(email,password);

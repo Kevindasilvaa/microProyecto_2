@@ -7,7 +7,7 @@ import { useUser } from '../context/user';
 
 export default function NavBar() {
   const {user,setUser} = useUser();
-
+ 
     return (
 
       <header className={styles.header}>

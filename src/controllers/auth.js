@@ -6,9 +6,10 @@ import { db } from '../firebase';
 export async function loginWithCredentials(email, password){
   try{
       await signInWithEmailAndPassword(auth,email,password);
-      
+
   }catch (e){
       console.error(e);
+      alert("Credenciales invalidas");
   }
 }
 //Dados esos parametros. este metodo guardara los datos del usuario en la base de datos de firebase
@@ -33,10 +34,10 @@ export async function registerWithCredentials(email,password,name,last_name,user
       };
     
       await setDoc(docRef, data, { merge: true });
-      return user;
+      return true;
   }catch (e){
       console.error("error al registrar con credenciales",e);
-      return null;
+      return false;
   }
 }
 

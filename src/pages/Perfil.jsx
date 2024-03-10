@@ -5,6 +5,10 @@ import styles from './Perfil.module.css';
 import cargando from '../img/cargando.gif';
 import img_user from '../img/user.png'
 import { useState } from 'react';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from '../firebase';
 
 export default function Perfil() {
   const {videojuegosStatus,} = useVideojuegos();
@@ -14,6 +18,16 @@ export default function Perfil() {
   const [nuevo_apellido,setNuevo_apellido] = useState("");
   const [nameError, setNameError] = useState("");
   const [last_nameError, setLast_nameError] = useState("");
+  const navigate = useNavigate();
+
+  //cada vez que el auth cambie pasara por aqui
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+        if (user === null) {
+            navigate("/");  
+        }
+      });
+  }, []);
 
   function cambiarNombre(){
     setNameError("");

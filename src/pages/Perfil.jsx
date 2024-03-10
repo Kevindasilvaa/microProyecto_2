@@ -110,6 +110,7 @@ export default function Perfil() {
         <p>Email: {user.email}</p>
         <p>Username: {user.username}</p>
         <p>Videojuego preferido: {user.videojuego_preferido}</p>
+        <p>id's membresias: {user.membresias}</p>
       </header>
       <div className={styles.div_inputs}>
         <p>Actualizar informacion:</p>

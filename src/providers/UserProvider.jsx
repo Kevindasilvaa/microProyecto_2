@@ -16,11 +16,9 @@ export default function UserProvider({ children }) {
       const usersCollection = collection(db,'usuarios');
       const usersSnapshot = await getDocs(usersCollection);
       const users = usersSnapshot.docs.map((doc) => doc.data());
-      console.log(users);
       for (let i = 0; i < users.length; i++) {
         if(users[i]['email'] === user.email){
-          const usuario = new Usuario(users[i]['nombre'],users[i]['apellido'],users[i]['username'],users[i]['email'],users[i]['videojuego_preferido']);
-          console.log( usuario.videojuego_preferido);
+          const usuario = new Usuario(users[i]['nombre'],users[i]['apellido'],users[i]['username'],users[i]['email'],users[i]['videojuego_preferido'],users[i]['membresias']);
           setUser(usuario);
         }
       }

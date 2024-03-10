@@ -11,7 +11,6 @@ export async function getClubes() {
             ...(doc.data() as any),
             id: doc.id,
             }));
-
         return clubes;
 
     } catch (error) {

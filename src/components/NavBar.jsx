@@ -1,4 +1,4 @@
-import logo from '../img/UNIMET_neg.png'
+import logo from '../img/logo.png'
 import { routes } from '../constants/routes';
 import { Link, NavLink } from "react-router-dom";
 import { logOut} from '../controllers/auth';

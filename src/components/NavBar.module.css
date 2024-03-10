@@ -4,13 +4,17 @@
     align-items: center;
     box-sizing: border-box; 
     justify-content: space-between;
-    padding: 0.5rem 2rem;
+    padding: 1.5rem 1rem;
     width: 100%;
     color: #ffffff;
+    font-family: "Pixelify Sans", sans-serif;
+    font-size: 1.5rem;
+    font-optical-sizing: auto;
+    font-style: normal;
   
     top: 0;
     left: 0;
-    background-color: #000A62;
+    background-color: #010402;
   
 
 
@@ -20,23 +24,27 @@
       gap: 1.5rem;
   
       .nav-link {
-        color: #c1c1c1d8;
-        font-size: 1.25rem;
+        color: #D175B7;
+        font-size: 1.5rem;
         text-decoration: none;
         transition: color 0.3s;
   
         &:hover {
-          color: #ffffff;
+          color: #d29ac2;
         }
   
         &.active {
-          color: #ffffff;
+          color: #d5aeca;
         }
       }
     }
   }
 
+  
+
   img{
     margin-right: 2rem;
+    object-fit: contain;
   }
+
 

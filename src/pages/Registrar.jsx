@@ -100,7 +100,11 @@ export default function Registar() {
 
     if (videojuegosStatus.status === "loading" ) {
     //   return <div>Cargando...</div>;
-        return <img width="40%" height="20%"  src={cargando} ></img>
+        return (
+            <div style={{ display: "flex", justifyContent: "center", alignItems: "center" , height: "100vh"}}>
+                <img width="40%" height="20%" src={cargando}/>
+            </div>
+        );
     } else if (videojuegosStatus.status === "error" ) {
       return <div>Error al cargar los datos</div>;
     }

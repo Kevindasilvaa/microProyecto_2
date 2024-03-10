@@ -33,23 +33,19 @@ export default function Home() {
     }
   }
 
-   
-
   return (
-    <div>
-      HOME
-      <button onClick={() => logOut()}>cerrar sesion</button>
-      <button onClick={() => mostrarDatos()}>mostrar datos usuario</button>
-
-      <div>  {clubes.map((Club) => (
-        <>
-            <div key={Club.nombre}>{Club.nombre}</div>
-         </>
-          ) ) }
-        </div>
-
     
+     <div>
+       HOME
+        <button onClick={() => logOut()}>cerrar sesion</button>
+        <button onClick={() => mostrarDatos()}>mostrar datos usuario</button>
 
-  </div>
+        <div>  {clubes.map((Club) => (
+            <>
+              <div key={Club.nombre}>{Club.nombre}</div>
+            </>
+            ) ) }
+        </div>
+    </div>
   );
 }

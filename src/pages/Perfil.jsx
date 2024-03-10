@@ -1,12 +1,10 @@
-import { logOut, modificarUsuario} from '../controllers/auth';
+import { modificarUsuario} from '../controllers/auth';
 import { useUser } from '../context/user';
 import useVideojuegos from '../hooks/useVideojuegos';
-import { Videojuego } from '../objetos/Videojuego';
 import styles from './Perfil.module.css';
 import cargando from '../img/cargando.gif';
 import img_user from '../img/user.png'
 import { useState } from 'react';
-import { UserContext } from '../context/user';
 
 export default function Perfil() {
   const {videojuegosStatus,} = useVideojuegos();
@@ -14,12 +12,14 @@ export default function Perfil() {
   const {user,setUser} = useUser();
   const [nuevo_nombre,setNuevo_nombre] = useState("");
   const [nuevo_apellido,setNuevo_apellido] = useState("");
+  const [nameError, setNameError] = useState("");
+  const [last_nameError, setLast_nameError] = useState("");
 
   function cambiarNombre(){
+    setNameError("");
     if(nuevo_nombre === ""){
-      alert("Rellena el campo 'Nuevo nombre' para continuar");
-    }else if(nuevo_nombre.length > 20){
-      alert("Tu nombre no puede tener mas de 20 caracteres");
+      setNameError("Por favor coloca tu nuevo nombre");
+      return;
     }else{
       const user_modificado = {
         nombre: nuevo_nombre,
@@ -35,10 +35,10 @@ export default function Perfil() {
     }
   }
   function cambiarApellido(){
+    setLast_nameError("");
     if(nuevo_apellido === ""){
-      alert("Rellena el campo 'Nuevo apellido' para continuar");
-    }else if(nuevo_apellido.length > 24){
-      alert("Tu apellido no puede tener mas de 24 caracteres");
+      setLast_nameError("Por favor coloca tu nuevo apellido");
+      return;
     }else{
       const user_modificado = {
         nombre: user.nombre,
@@ -71,15 +71,25 @@ export default function Perfil() {
 
   if (videojuegosStatus.status === "loading" ) {
     //   return <div>Cargando...</div>;
-        return <img width="40%" height="20%"  src={cargando} ></img>
+        return (
+          <div style={{ display: "flex", justifyContent: "center", alignItems: "center" , height: "100vh"}}>
+            <img width="40%" height="20%" src={cargando}/>
+          </div>
+      );
+        
     } else if (videojuegosStatus.status === "error" ) {
       return <div>Error al cargar los datos</div>;
     }
   return (
     <div className={styles.div_principal}>
       <header>
-        <p>Perfil</p>
-        <img width="40%" height="40%"  src={img_user} ></img>
+        {/**ENCABEZADO */}
+        <div className={styles.titleContainer}>
+                Perfil
+          <img style={{ marginLeft: "10%"}} width="70%" height="40%" src={img_user} ></img>
+          <p style={{ fontSize: "14px" }}>{user.email}</p>
+          <p> {user.nombre} {user.apellido}</p>
+        </div>
         <p>Informacion actual: </p>
         <p>Nombre: {user.nombre}</p>
         <p>Apellido: {user.apellido}</p>
@@ -93,18 +103,29 @@ export default function Perfil() {
           <input 
             type="text" 
             placeholder="Nuevo Nombre"
+            className={styles.inputBox}
             onChange={(ev) => setNuevo_nombre(ev.target.value)}
           />
-          <button onClick={() => cambiarNombre()}>Guardar</button>
+          <button onClick={() => cambiarNombre()} 
+          className={styles.button} 
+          >Guardar</button>
+          <label className={styles.errorLabel}>{nameError}</label>
         </div>
+        <br />
         <div className={styles.inputs}>
           <input 
             type="text" 
             placeholder="Nuevo Apellido"
+            className={styles.inputBox}
             onChange={(ev) => setNuevo_apellido(ev.target.value)}
           />
-          <button onClick={() => cambiarApellido()}>Guardar</button>
+          <button 
+          onClick={() => cambiarApellido()}
+          className={styles.button}
+          >Guardar</button>
+          <label className={styles.errorLabel}>{last_nameError}</label>
         </div>
+        <br />
         <div>
           Selecciona tu videojuego favorito: 
           <select id="videojuego">
@@ -112,7 +133,10 @@ export default function Perfil() {
           <option key={Videojuego.titulo} value={Videojuego.ID}>{Videojuego.titulo}</option>
           ) )}
           </select>
-          <button onClick={() => cambiarJuegoFavorito()}>Guardar</button>
+          <button 
+          onClick={() => cambiarJuegoFavorito()}  
+          className={styles.buttonEspecial}
+          >Guardar</button>
         </div>
       </div>
     </div>

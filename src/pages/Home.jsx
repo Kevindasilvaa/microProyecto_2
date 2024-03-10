@@ -53,7 +53,7 @@ export default function Home() {
         elemento.classList.add(styles.desuscribirse);
         elemento.classList.remove(styles.suscribirse);
      }
-     //modificarUsuario(user);
+     modificarUsuario(user);
   }
 
   if (

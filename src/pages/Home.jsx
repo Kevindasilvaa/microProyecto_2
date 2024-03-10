@@ -56,7 +56,7 @@ export default function Home() {
           <p className="card-text">{club.descripcion}</p>
           <NavLink  key={`/Club/${club.id}`}
             to={`/Club/${club.id}`}
-            state={{club:club}} className="btn btn-dark" style={{ backgroundColor: '#1C2C54' }}>Detalles</NavLink>
+            className="btn btn-dark" style={{ backgroundColor: '#1C2C54' }}>Detalles</NavLink>
         </div>
         </div>
             

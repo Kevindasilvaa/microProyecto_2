@@ -12,17 +12,6 @@ export default function useVideojuegos() {
         promiseFunction: getVideojuegos,
         });
 
-
-//     async function videojuegoById(index: number) {
-//     if (
-//         videojuegosStatus.status !== "success" 
-//     )
-//       return;
-
-
-//     await getVideogameById(videojuegosStatus.data[index].id);
-
-//   }
         
         return {
             videojuegosStatus

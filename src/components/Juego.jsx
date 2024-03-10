@@ -19,7 +19,6 @@ export default function Juego({id}) {
         setLoading(true);
         const juego = await getVideogameById(id);
         setLoading(false);
-        console.log({ juego });
         setJuego(juego);
       }
   

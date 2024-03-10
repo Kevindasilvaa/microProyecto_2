@@ -21,20 +21,23 @@
     .nav {
       display: flex;
       align-items: center;
-      gap: 1.5rem;
+      gap: 2rem;
   
       .nav-link {
         color: #D175B7;
         font-size: 1.5rem;
         text-decoration: none;
         transition: color 0.3s;
+        transition: transform 0.5s; 
   
         &:hover {
           color: #d29ac2;
+          transform: scale(1.1);
         }
   
         &.active {
-          color: #d5aeca;
+          color: #ffe6f8;
+          transition: color 0.3s;
         }
       }
     }

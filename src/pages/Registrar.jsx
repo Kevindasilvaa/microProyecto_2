@@ -1,16 +1,14 @@
 import styles from './Registrar.module.css';
-import { NavLink, Outlet } from "react-router-dom";
-import { routes } from "../constants/routes";
 import { useEffect, useState } from 'react';
 import { auth } from '../firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { ingresarGoogle, registerWithCredentials } from '../controllers/auth';
-import img from '../img/ingresar.jpg';
-import logo from '../img/UNIMET_neg.png';
-import cargando from '../img/cargando.gif'
-import { Videojuego } from '../objetos/Videojuego'; 
+import cargando from '../img/cargando.gif';
 import useVideojuegos from '../hooks/useVideojuegos';
+import google from '../img/google.png';
+
+import juego from '../img/juego.jpg';
 
 
 export default function Registar() {
@@ -20,6 +18,11 @@ export default function Registar() {
     const [name, setName] = useState("");
     const [last_name, setLast_name] = useState("");
     const [username, setUsername] = useState("");
+    const [emailError, setEmailError] = useState("");
+    const [passwordError, setPasswordError] = useState("");
+    const [nameError, setNameError] = useState("");
+    const [last_nameError, setLast_nameError] = useState("");
+    const [usernameError, setUsernameError] = useState("");
 
     const {videojuegosStatus,} = useVideojuegos();
     const videojuegos = videojuegosStatus.data;
@@ -36,21 +39,63 @@ export default function Registar() {
     }, []);
 
     function register(){
+        // Set initial error values to empty
+        setEmailError("");
+        setPasswordError("");
+        setNameError("");
+        setUsernameError("");
+        setLast_nameError("");
+
+
+        // Check if the user has entered both fields correctly
+        if(name === ""){
+            setNameError("Por favor coloca tu nombre");
+            return;
+        }
+        if(last_name === ""){
+            setLast_nameError("Por favor coloca tu apellido");
+            return;
+        }
+        if(username === ""){
+            setUsernameError("Por favor coloca tu Username");
+            return;
+        }
+        if ("" === email) {
+            setEmailError("Por favor coloca tu email");
+            return;
+        }
+    
+        if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
+            setEmailError("Por favor coloca un email valido");
+            return;
+        }
+    
+        if ("" === password) {
+            setPasswordError("Por favor ingresa una contraseña");
+            return;
+        }
+    
+        if (password.length < 7) {
+            setPasswordError("La contraseña debe tener al menos 8 caracteres");
+            return;
+        }
         const videojuego_preferido = document.getElementById('videojuego').value;
         registerWithCredentials(email,password,name,last_name,username,videojuego_preferido);
     }
 
     function registrarConGoogle(){
-        if(last_name === "" && username === ""){
-            alert("Asegurate colocar tu Apellido y tu Username antes de registrarte con Google");
-        }else if(last_name === ""){
-            alert("Asegurate colocar tu Apellido antes de registrarte con Google");
-        }else if(username === ""){
-            alert("Asegurate colocar tu Username antes de registrarte con Google");
-        }else{
-            const videojuego_preferido = document.getElementById('videojuego').value;
-            ingresarGoogle(last_name,username,videojuego_preferido);
+        setUsernameError("");
+        setLast_nameError("");
+        if(last_name === ""){
+            setLast_nameError("Por favor coloca tu apellido antes de registrarte con Google");
+            return;
         }
+        if(username === ""){
+            setUsernameError("Por favor coloca tu Username antes de registrarte con Google");
+            return;
+        }
+        const videojuego_preferido = document.getElementById('videojuego').value;
+        ingresarGoogle(last_name,username,videojuego_preferido);
     }
 
     if (videojuegosStatus.status === "loading" ) {
@@ -63,41 +108,56 @@ export default function Registar() {
     return (
         <div className={styles.div_principal}>
             <div>{/**PARTE IZQUIERDA(IMAGEN) */}
-                <img width="100%" height="100%"  src={img} ></img>
+                <img width="100%" height="100%"  src={juego} ></img>
             </div>
-            <div style={{ margin:'8%' }}>{/**PARTE DERECHA */}
+            <div style={{ margin:'6%' }}>{/**PARTE DERECHA */}
                 {/**ENCABEZADO */}
-                <div className={styles.encabezado}>
-                    <img width="40%" height="40%"  src={logo} ></img>
-                    <p>BIENVENIDO</p>
+                <div className={styles.titleContainer}>
+                    <div>Registro</div>
                 </div>
+                <br />
                 {/**INPUTS */}
                 <div className={styles.div_inputs}>
                     <input 
                     type="text" 
                     placeholder="Nombre"
+                    className={styles.inputBox}
                     onChange={(ev) => setName(ev.target.value)}
                     />
+                    <label className={styles.errorLabel}>{nameError}</label>
+                    <br />
                     <input 
                     type="text" 
                     placeholder="Apellido"
+                    className={styles.inputBox}
                     onChange={(ev) => setLast_name(ev.target.value)}
                     />
+                    <label className={styles.errorLabel}>{last_nameError}</label>
+                    <br />
                     <input 
                     type="text" 
                     placeholder="Username"
+                    className={styles.inputBox}
                     onChange={(ev) => setUsername(ev.target.value)}
                     />
+                    <label className={styles.errorLabel}>{usernameError}</label>
+                    <br />
                     <input 
                     type="text" 
                     placeholder="Email"
+                    className={styles.inputBox}
                     onChange={(ev) => setEmail(ev.target.value)}
                     />
+                    <label className={styles.errorLabel}>{emailError}</label>
+                    <br />
                     <input 
                     type="text" 
                     placeholder="Contraseña"
+                    className={styles.inputBox}
                     onChange={(ev) => setPassword(ev.target.value)}
                     />
+                    <label className={styles.errorLabel}>{passwordError}</label>
+                    <br />
                     <div>
                         Selecciona tu videojuego favorito
                         <select id="videojuego">
@@ -109,13 +169,20 @@ export default function Registar() {
                 </div>
                 {/**ENLACES A OTRAS PAGINAS */}
                 <div className={styles.div_enlaces}>
-                    <button onClick={() => register(email,password,name,username)}>Crear Cuenta</button>
+                    <button 
+                    onClick={() => register(email,password,name,username)}
+                    className={styles.button}
+                    >Crear Cuenta</button>
                 </div>
                 {/**INICIO DE SESION MEDIANTE PROVEEDORES */}
                 <div>
                     <hr className={styles.linea_horizontal}/>
-                    <button onClick={() => registrarConGoogle()}>GOOGLE</button>
-                    <button>FACEBOOK</button>
+                    <button 
+                    onClick={() => registrarConGoogle()}
+                    className={styles.butt}
+                    >
+                        <img width="40%" height="20%"  src={google} ></img>
+                    </button>
                 </div>
             </div>
         </div>

@@ -89,7 +89,7 @@ export default function Perfil() {
       </header>
       <div className={styles.div_inputs}>
         <p>Actualizar informacion:</p>
-        <div>
+        <div className={styles.inputs}>
           <input 
             type="text" 
             placeholder="Nuevo Nombre"
@@ -97,7 +97,7 @@ export default function Perfil() {
           />
           <button onClick={() => cambiarNombre()}>Guardar</button>
         </div>
-        <div>
+        <div className={styles.inputs}>
           <input 
             type="text" 
             placeholder="Nuevo Apellido"

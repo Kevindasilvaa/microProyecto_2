@@ -1,17 +1,19 @@
-import img from '../img/ingresar.jpg';
-import logo from '../img/UNIMET_neg.png';
 import styles from './Ingresar.module.css';
 import { useState,useEffect } from 'react';
 import { useUser } from '../context/user';
-import { loginWithCredentials,ingresarGoogle, iniciarSesionGoogle } from '../controllers/auth';
+import { loginWithCredentials, iniciarSesionGoogle } from '../controllers/auth';
 import { useNavigate } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../firebase';
+import game from '../img/game.avif';
+import google from '../img/google.png';
 
 export default function Ingresar() {
     const {user,setUser} = useUser();
     const [email,setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [emailError, setEmailError] = useState("");
+    const [passwordError, setPasswordError] = useState("");
     const navigate = useNavigate();
 
     //cada vez que el auth cambie pasara por aqui
@@ -23,8 +25,31 @@ export default function Ingresar() {
         });
     }, []);
     function botonIniciarSesion(){
+        // Set initial error values to empty
+        setEmailError("");
+        setPasswordError("");
         //Si user == null entonces no hay sesion iniciada.En caso contrario hay una sesion iniciada.
         if( user == null){
+            // Check if the user has entered both fields correctly
+            if ("" === email) {
+                setEmailError("Please enter your email");
+                return;
+            }
+        
+            if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
+                setEmailError("Please enter a valid email");
+                return;
+            }
+        
+            if ("" === password) {
+                setPasswordError("Por favor ingresa una contraseña");
+                return;
+            }
+        
+            if (password.length < 7) {
+                setPasswordError("La contraseña debe tener al menos 8 caracteres");
+                return;
+            }
             loginWithCredentials(email,password);
             //navigate("/Clubes");
         }else{
@@ -38,8 +63,8 @@ export default function Ingresar() {
             //verifica las credenciales y de ser validas, cambiara el estado de user
             const x = await iniciarSesionGoogle();
             if(x === true){
-                alert("Has iniciado sesion con una cuenta de google que no estaba registrada \n Rellena los datos de tu perfil");
                 navigate("/Perfil");
+                alert("Has iniciado sesion con una cuenta de google que no estaba registrada! \n Rellena los datos de tu perfil.");
             }
 
         }else{
@@ -50,38 +75,51 @@ export default function Ingresar() {
     return (
     <div className={styles.div_principal}>
         <div>{/**PARTE IZQUIERDA(IMAGEN) */}
-            <img width="100%" height="100%"  src={img} ></img>
+            <img width="100%" height="100%"  src={game} ></img>
         </div>
-        <div style={{ margin:'8%' }}>{/**PARTE DERECHA */}
+        <div style={{ margin:'10%' }}>{/**PARTE DERECHA */}
             {/**ENCABEZADO */}
-            <div className={styles.encabezado}>
-                <img width="40%" height="40%"  src={logo} ></img>
-                <p>BIENVENIDO</p>
+            <div className={styles.titleContainer}>
+                Inicio de Sesion
             </div>
+            <br />
             {/**INPUTS */}
             <div className={styles.div_inputs}>
                 <input 
                 type="text" 
-                placeholder="Usuario"
+                placeholder="Email"
+                className={styles.inputBox}
                 onChange={(ev) => setEmail(ev.target.value)}
                 />
+                <label className={styles.errorLabel}>{emailError}</label>
+                <br />
                 <input 
                 type="text" 
                 placeholder="Contraseña"
+                className={styles.inputBox}
                 onChange={(ev) => setPassword(ev.target.value)}
                 />
+                <label className={styles.errorLabel}>{passwordError}</label>
             </div>
             {/**ENLACES A OTRAS PAGINAS */}
             <div className={styles.div_enlaces}>
-                <a href="">¿Olvidaste tu contraseña?</a>
-                <button onClick={() => botonIniciarSesion()}>Iniciar sesion</button>
+                <button 
+                onClick={() => botonIniciarSesion()}
+                className={styles.button}
+                >
+                Iniciar sesion
+                </button>
                 <a href="/Registrar">Crear Mi Cuenta</a>
             </div>
             {/**INICIO DE SESION MEDIANTE PROVEEDORES */}
             <div>
                 <hr className={styles.linea_horizontal}/>
-                <button onClick={() => botonIniciarSesionGoogle()}>GOOGLE</button>
-                <button>FACEBOOK</button>
+                <button 
+                onClick={() => botonIniciarSesionGoogle()}
+                className={styles.butt}
+                >
+                    <img width="40%" height="20%"  src={google} ></img>
+                </button>
             </div>
         </div>
     </div>

@@ -11,7 +11,7 @@ export default function NavBar() {
     return (
 
       <header className={styles.header}>
-      <img className="logo" width="100px" height="40px"  src={logo} ></img>
+      <img className={styles.icon} width="100px" height="40px"  src={logo} ></img>
 
       
       {user ? 

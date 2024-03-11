@@ -77,7 +77,7 @@ export default function Ingresar() {
         <div>{/**PARTE IZQUIERDA(IMAGEN) */}
             <img width="100%" height="100%"  src={game} ></img>
         </div>
-        <div style={{ margin:'10%' }}>{/**PARTE DERECHA */}
+        <div style={{ margin:'auto'}}>{/**PARTE DERECHA */}
             {/**ENCABEZADO */}
             <div className={styles.titleContainer}>
                 Inicio de Sesion

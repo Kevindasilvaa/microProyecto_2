@@ -1,7 +1,7 @@
 import { useLocation } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import Juego from "../components/Juego";
-import styles from './Home.module.css';
+import styles from './Club.module.css';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from "../context/user";
 import { useEffect, useState } from 'react';
@@ -78,30 +78,23 @@ export default function Club() {
     }
     return (
         <>
-        {/* <div>{location.state.club.nombre}</div>
-        <div>{location.state.club.descripcion}</div>
-        {location.state.club.videojuegos.map((index) => (
-            <Juego
-            key={id}
-            id={index}
-            />
-        ))} */}
 
-        <div>
-            <div className="nombre">
-                <h1> {club.nombre}</h1>
+        <div className={styles.div_principal}>
+            <div className={styles.info}>
+                <div style={{color: "#4BC3B5", fontSize: "65px", marginBottom: "10px"}}> {club.nombre}</div>
+                <h3>{club.descripcion}</h3>
                 <button id={club.id} onClick={ () => handleClick(club.id)} 
                 className={`${user.membresias.includes(club.id)? styles.desuscribirse : styles.suscribirse}`}></button>
 
             </div>
             
-            <h3>{club.descripcion}</h3>
             
-            <h4>Juegos</h4>
-            <div className="juegos">
+            
+            <h4 >Juegos</h4>
+            <div className={styles.juegos}>
                 {club.videojuegos.map((index) => (
                 <Juego
-                key={id}
+                
                 id={index}
                 />
             ))} 

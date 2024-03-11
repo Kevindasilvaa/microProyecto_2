@@ -30,8 +30,18 @@ export default function Juego({id}) {
     }
  
     return (
-      <>
-        <div>{juego.titulo}</div>
+      < >
+        <div className="card text-center p-2 mx-1 my-3" style={{ width: '20rem'}}>
+        <div className="card-body">
+          <h5 className="card-title" >{juego.titulo}</h5>
+          <p className="card-text">{juego.descripcion}</p>
+          <div class="card-footer text-muted" >
+          {juego.genero}
+        </div>
+        </div>
+        </div>
       </>
+
+      
     );
 }

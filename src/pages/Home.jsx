@@ -90,13 +90,13 @@ export default function Home() {
 
   return (
     <div className={styles.div_principal}>
-    <div className='container d-flex flex-wrap'>
+    <div className='container d-flex flex-wrap justify-content-center'>
       {clubes.map((club) => (
           <>
 
         <div className="card text-center p-2 mx-1 my-3" style={{ width: '20rem'}}>
         <div className="card-body">
-          <h5 className="card-title">{club.nombre}</h5>
+          <h5 className="card-title" style={{color: '#bf54a1', fontWeight: '600'}}>{club.nombre}</h5>
           <p className="card-text">{club.descripcion}</p>
           <NavLink  key={`/Club/${club.id}`}
             to={`/Club/${club.id}`}

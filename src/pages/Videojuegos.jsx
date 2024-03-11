@@ -1,6 +1,7 @@
 import useVideojuegos from '../hooks/useVideojuegos';
 import { Videojuego } from '../objetos/Videojuego'; 
 import { onAuthStateChanged } from 'firebase/auth';
+import styles from './Videojuegos.module.css';
 import { auth } from '../firebase';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -56,13 +57,14 @@ export default function Videojuegos() {
     }
 
     return (
-        <>
+      <div style={{height: "100vh", backgroundColor: "#1C2C54", color: "white" }}>
+        <div style={{padding: "5%"}}>
         <form className="d-flex">
-        <input
-          value={filterValue}
+        <input className='form-control form-control-lg'
+          value={filterValue} placeholder='Escribe el nombre del juego...'
           onChange={(e) => setFilterValue(e.target.value)}
         />
-        <button className="btn btn-outline-success" onClick={buscador}>Search</button>
+        <button className="btn btn-outline-light" onClick={buscador}>Search</button>
         </form>
         {/* <div>  {videojuegos.map((Videojuego) => (
             <div key={Videojuego.titulo}>{Videojuego.titulo}</div>
@@ -70,12 +72,12 @@ export default function Videojuegos() {
         </div> */}
         {console.log(filteredGames)}
         {filteredGames.map((videojuegos) => (
-          <div>
+          <div style={{padding: "4px", fontSize: "18px"}}>
             {videojuegos.titulo}
           </div>
         ))}
-        </>
+        </div>
+        </div>
         
     );
-
-}
+}styles;

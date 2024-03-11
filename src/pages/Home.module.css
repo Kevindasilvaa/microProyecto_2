@@ -12,7 +12,7 @@
 } */
 .suscribirse {
     /* Estilos para el botón de suscripción */
-    background-color: #4CAF50; /* Color de fondo verde */
+    background-color: #4BC3B5; /* Color de fondo verde */
     color: white; /* Color del texto blanco */
     padding: 10px 20px; /* Espaciado interno */
     border: none; /* Sin borde */
@@ -28,7 +28,7 @@
   
   .desuscribirse {
     /* Estilos para el botón de desuscripción */
-    background-color: #f44336; /* Color de fondo rojo */
+    background-color: #c43227; /* Color de fondo rojo */
     color: white; /* Color del texto blanco */
     padding: 10px 20px; /* Espaciado interno */
     border: none; /* Sin borde */

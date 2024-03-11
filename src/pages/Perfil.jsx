@@ -105,7 +105,7 @@ export default function Perfil() {
         {/**ENCABEZADO */}
         <div className={styles.titleContainer}>
                 Perfil
-          <img style={{ marginLeft: "10%"}} width="170px" height="170px" src={img_user} ></img>
+          <img style={{ marginLeft: "10%", objectFit: "contain"}} width="170px" height="170px" src={img_user} ></img>
           <p style={{ fontSize: "20px", color: "#D175B7"}}>{user.email}</p>
           <p style={{color: "#4BC3B5"}}> {user.nombre} {user.apellido}</p>
         </div>

@@ -1,6 +1,32 @@
+.div_principal {
+  padding:20px;
+  display: flex;
+  flex-direction: column;
+  background-color: #1C2C54;
+  text-align: center;
+  color: white;
+  align-items: center;
+  font-weight: bolder;
+  height: 100vh;
+
+}
+
+.info{
+    padding: 2%;  
+}
+
+.juegos{
+  display: flex;
+  flex-direction: row;
+    color: black;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+
 .suscribirse {
     /* Estilos para el botón de suscripción */
-    background-color: #4CAF50; /* Color de fondo verde */
+    background-color: #bf54a1; /* Color de fondo verde */
     color: white; /* Color del texto blanco */
     padding: 10px 20px; /* Espaciado interno */
     border: none; /* Sin borde */

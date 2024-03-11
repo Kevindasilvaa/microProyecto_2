@@ -32,29 +32,33 @@ export default function Home() {
     clubStatus,
   } = useClubes();
 
+
+
   const clubes = clubStatus.data;
   function handleClick(id){
      const elemento = document.getElementById(id);
-     if(id in user.membresias){
+     if(user.membresias.includes(id)){
       const membresiasActualizadas = user.membresias.filter(membresia => membresia !== id); // Eliminar el ID de membresias
       setUser(prevUser => ({
         ...prevUser,
         membresias: membresiasActualizadas
       }));
       // Agregar una clase al elemento
-      elemento.classList.add(styles.suscribirse);
       elemento.classList.remove(styles.desuscribirse);
+      elemento.classList.add(styles.suscribirse);
      }else{
         const membresiasActualizadas = [...user.membresias, id]  //agregar membresia
         setUser(prevUser => ({
           ...prevUser,
           membresias: membresiasActualizadas
         }));
-        elemento.classList.add(styles.desuscribirse);
         elemento.classList.remove(styles.suscribirse);
+        elemento.classList.add(styles.desuscribirse);
+        
      }
      modificarUsuario(user);
   }
+
 
   if (
     clubStatus.status === "loading" ) {
@@ -82,7 +86,7 @@ export default function Home() {
             to={`/Club/${club.id}`}
             state={{club:club}} className="btn btn-dark" style={{ backgroundColor: '#1C2C54' }}>Detalles</NavLink>
           <br />
-          <button id={club.id} onClick={ () => handleClick(club.id)} className={`${club.id in user.membresias? styles.desuscribirse : styles.suscribirse}`}></button>
+          <button id={club.id} onClick={ () => handleClick(club.id)} className={`${user.membresias.includes(club.id)? styles.desuscribirse : styles.suscribirse}`}></button>
         </div>
         </div>
             

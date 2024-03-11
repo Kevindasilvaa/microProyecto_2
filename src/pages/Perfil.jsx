@@ -3,7 +3,8 @@ import { useUser } from '../context/user';
 import useVideojuegos from '../hooks/useVideojuegos';
 import styles from './Perfil.module.css';
 import cargando from '../img/cargando.gif';
-import img_user from '../img/user.png'
+import ClubName from '../components/ClubName'
+import img_user from '../img/cat.png'
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -19,6 +20,10 @@ export default function Perfil() {
   const [nameError, setNameError] = useState("");
   const [last_nameError, setLast_nameError] = useState("");
   const navigate = useNavigate();
+  //const [id, setId] = ("")
+  const [loading, setLoading] = useState(true);
+
+
 
   //cada vez que el auth cambie pasara por aqui
   useEffect(() => {
@@ -100,17 +105,28 @@ export default function Perfil() {
         {/**ENCABEZADO */}
         <div className={styles.titleContainer}>
                 Perfil
-          <img style={{ marginLeft: "10%"}} width="70%" height="40%" src={img_user} ></img>
-          <p style={{ fontSize: "14px" }}>{user.email}</p>
-          <p> {user.nombre} {user.apellido}</p>
+          <img style={{ marginLeft: "10%"}} width="170px" height="170px" src={img_user} ></img>
+          <p style={{ fontSize: "20px", color: "#D175B7"}}>{user.email}</p>
+          <p style={{color: "#4BC3B5"}}> {user.nombre} {user.apellido}</p>
         </div>
-        <p>Informacion actual: </p>
+        <p style={{ fontSize: "25px" }}>Informacion actual: </p>
         <p>Nombre: {user.nombre}</p>
         <p>Apellido: {user.apellido}</p>
         <p>Email: {user.email}</p>
         <p>Username: {user.username}</p>
         <p>Videojuego preferido: {user.videojuego_preferido}</p>
-        <p>id's membresias: {user.membresias}</p>
+        <p style={{ fontSize: "25px", color: "#D175B7"}}>Miembro de: </p>
+        <div className="membresias">
+       
+                {user.membresias.map((index) => (
+                <ClubName
+                key={index}
+                id={index}
+                />
+            ))} 
+            </div>
+        
+
       </header>
       <div className={styles.div_inputs}>
         <p>Actualizar informacion:</p>

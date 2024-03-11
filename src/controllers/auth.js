@@ -36,6 +36,7 @@ export async function registerWithCredentials(email,password,name,last_name,user
       await setDoc(docRef, data, { merge: true });
       return true;
   }catch (e){
+      alert("ERROR! Es posible que el correo que indicaste ya este en uso");
       console.error("error al registrar con credenciales",e);
       return false;
   }

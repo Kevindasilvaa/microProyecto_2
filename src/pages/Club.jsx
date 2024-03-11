@@ -43,6 +43,15 @@ export default function Club() {
          // Agregar una clase al elemento
          elemento.classList.remove(styles.desuscribirse);
          elemento.classList.add(styles.suscribirse);
+         const usuario_modificado = {
+          nombre: user.nombre,
+          apellido: user.apellido,
+          username: user.username,
+          email: user.email,
+          videojuego_preferido: user.videojuego_preferido,
+          membresias:membresiasActualizadas, 
+        };
+        modificarUsuario(usuario_modificado);
         }else{
            const membresiasActualizadas = [...user.membresias, id]  //agregar membresia
            setUser(prevUser => ({
@@ -51,9 +60,17 @@ export default function Club() {
            }));
            elemento.classList.remove(styles.suscribirse);
            elemento.classList.add(styles.desuscribirse);
+           const usuario_modificado = {
+            nombre: user.nombre,
+            apellido: user.apellido,
+            username: user.username,
+            email: user.email,
+            videojuego_preferido: user.videojuego_preferido,
+            membresias:membresiasActualizadas, 
+          };
+          modificarUsuario(usuario_modificado);
            
         }
-        modificarUsuario(user);
      }
   
     if (loading) {

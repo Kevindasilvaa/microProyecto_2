@@ -108,7 +108,6 @@ export default function Home() {
             
           </>
         ))}
-      <div style={{ fontSize: "44px" }}>id's membresias actuales: {user.membresias}</div>
 
     
   </div>

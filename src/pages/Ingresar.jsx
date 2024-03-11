@@ -109,7 +109,7 @@ export default function Ingresar() {
                 >
                 Iniciar sesion
                 </button>
-                <a href="/Registrar">Crear Mi Cuenta</a>
+                <a href="/Registrar">Crear mi Cuenta</a>
             </div>
             {/**INICIO DE SESION MEDIANTE PROVEEDORES */}
             <div>
